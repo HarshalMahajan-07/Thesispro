@@ -10,31 +10,57 @@ import {
 import { ThesisCalculator } from '../components/ThesisCalculator'
 import { ServiceIcon, IconStar, IconGradCap } from '../components/Icons'
 
-export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBookingWithData }) {
+export function HomePage({
+  navigateTo,
+  onOpenBooking,
+  onSelectService,
+  onOpenBookingWithData,
+}) {
   const [activeFaqCategory, setActiveFaqCategory] = useState('All')
   const [openFaqIndex, setOpenFaqIndex] = useState(0)
 
-  const faqCategories = ['All', 'Academic Integrity & Ethics', 'Consultation & Process', 'Services & Scope', 'Universities & Degrees']
+  const faqCategories = [
+    'All',
+    'Academic Integrity & Ethics',
+    'Consultation & Process',
+    'Services & Scope',
+    'Universities & Degrees',
+  ]
 
-  const filteredFaqs = activeFaqCategory === 'All'
-    ? faqsData
-    : faqsData.filter((f) => f.category === activeFaqCategory)
+  const filteredFaqs =
+    activeFaqCategory === 'All'
+      ? faqsData
+      : faqsData.filter((faq) => faq.category === activeFaqCategory)
+
+  const handleFaqCategoryChange = (category) => {
+    setActiveFaqCategory(category)
+    setOpenFaqIndex(0)
+  }
 
   return (
     <div className="page-content home-page">
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className="hero-section">
         <div className="hero-container">
           <div className="hero-content">
             <div className="hero-pill-badge">
-              <span className="pill-dot"></span>
+              <span className="pill-dot" />
               <span>Trusted Master & MBA Thesis Advisory in Germany</span>
             </div>
+
             <h1 className="hero-title">
-              Elevate Your Thesis With <span className="text-highlight">Expert Academic Guidance</span>.
+              Elevate Your Thesis With{' '}
+              <span className="text-highlight">
+                Expert Academic Guidance
+              </span>
+              .
             </h1>
+
             <p className="hero-description">
-              Overcome topic hurdles, structure your research, master empirical data analysis (SPSS/R), and maintain a flawless <em>Roter Faden</em>. Confidential, ethical, and tailored to your faculty guidelines.
+              Overcome topic hurdles, structure your research, master empirical
+              data analysis (SPSS/R), and maintain a flawless{' '}
+              <em>Roter Faden</em>. Confidential, ethical, and tailored to your
+              faculty guidelines.
             </p>
 
             <div className="hero-cta-group">
@@ -46,6 +72,7 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
                 <span>Book Free Consultation</span>
                 <span className="btn-arrow">→</span>
               </button>
+
               <a
                 href={whatsappUrl}
                 target="_blank"
@@ -70,8 +97,12 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
                 alt="Academic desk prepared for thesis consultation"
                 className="hero-img"
               />
+
               <div className="hero-floating-badge">
-                <span className="badge-icon"><IconGradCap size={28} /></span>
+                <span className="badge-icon">
+                  <IconGradCap size={28} />
+                </span>
+
                 <div>
                   <strong>99.2% On-Time Completion</strong>
                   <p>Guided 450+ MBA & Master Students</p>
@@ -82,7 +113,7 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
         </div>
       </section>
 
-      {/* METRICS METRIC STRIP */}
+      {/* TRUST METRICS */}
       <section className="metrics-strip">
         <div className="metrics-container">
           {trustMetrics.map((item, idx) => (
@@ -94,14 +125,18 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
         </div>
       </section>
 
-      {/* QUICK STAGE DIAGNOSIS BANNER */}
+      {/* QUICK DIAGNOSIS */}
       <section className="stage-banner-section">
         <div className="stage-banner-card glass-panel">
           <div className="banner-copy">
             <span className="eyebrow">Quick Stage Diagnosis</span>
             <h3>Unsure Where To Start With Your Thesis?</h3>
-            <p>Use our interactive estimator to pinpoint your exact required hours, package, and deadline roadmap.</p>
+            <p>
+              Use our interactive estimator to pinpoint your exact required
+              hours, package, and deadline roadmap.
+            </p>
           </div>
+
           <button
             type="button"
             className="button button-primary ripple-btn"
@@ -112,41 +147,57 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
         </div>
       </section>
 
-      {/* FEATURED SERVICES */}
+      {/* SERVICES */}
       <section className="section services-overview-section">
         <div className="section-header center">
           <span className="eyebrow">Services & Support</span>
           <h2>Comprehensive Thesis Advisory Services</h2>
-          <p>Targeted mentoring designed for every critical phase of your Master or MBA thesis.</p>
+          <p>
+            Targeted mentoring designed for every critical phase of your Master
+            or MBA thesis.
+          </p>
         </div>
 
         <div className="services-grid">
           {servicesData.slice(0, 4).map((service) => (
-            <div
+            <article
               key={service.id}
               className="service-card glass-panel hover-card"
               onClick={() => onSelectService(service)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  onSelectService(service)
+                }
+              }}
             >
               <div className="service-card-top">
                 <span className="service-icon-box">
                   <ServiceIcon id={service.id} size={24} />
                 </span>
+
                 <span className="service-num">{service.number}</span>
               </div>
-                <span className="service-badge">{service.badge}</span>
-                <h3>{service.title}</h3>
-                <p>{service.shortDesc}</p>
-                <button
-                  type="button"
-                  className="card-text-link"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onSelectService(service)
-                  }}
-                >
-                  Learn More & Deliverables →
-                </button>
-              </div>
+
+              <span className="service-badge">{service.badge}</span>
+
+              <h3>{service.title}</h3>
+
+              <p>{service.shortDesc}</p>
+
+              <button
+                type="button"
+                className="card-text-link"
+                onClick={(event) => {
+                  event.stopPropagation()
+                  onSelectService(service)
+                }}
+              >
+                Learn More & Deliverables →
+              </button>
+            </article>
           ))}
         </div>
 
@@ -161,34 +212,56 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
         </div>
       </section>
 
-      {/* HOW IT WORKS TIMELINE */}
+      {/* PROCESS */}
       <section className="section how-it-works-section dark-accent-bg">
         <div className="section-header center light-text">
-          <span className="eyebrow light-eyebrow">4-Step Proven Process</span>
+          <span className="eyebrow light-eyebrow">
+            4-Step Proven Process
+          </span>
+
           <h2>How ThesisPro Mentorship Works</h2>
-          <p>A structured, collaborative approach that puts you in full control of your academic timeline.</p>
+
+          <p>
+            A structured, collaborative approach that puts you in full control
+            of your academic timeline.
+          </p>
         </div>
 
         <div className="timeline-grid">
           <div className="timeline-step glass-dark-card hover-card">
             <div className="step-number">01</div>
             <h4>Free Initial Consultation</h4>
-            <p>Discuss your thesis topic, faculty requirements, deadline, and challenges in a 30-minute 1:1 call.</p>
+            <p>
+              Discuss your thesis topic, faculty requirements, deadline, and
+              challenges in a 30-minute 1:1 call.
+            </p>
           </div>
+
           <div className="timeline-step glass-dark-card hover-card">
             <div className="step-number">02</div>
             <h4>Custom Strategy & Roadmap</h4>
-            <p>Receive a clear chapter-by-chapter outline, methodological blueprint, and milestone submission dates.</p>
+            <p>
+              Receive a clear chapter-by-chapter outline, methodological
+              blueprint, and milestone submission dates.
+            </p>
           </div>
+
           <div className="timeline-step glass-dark-card hover-card">
             <div className="step-number">03</div>
             <h4>1:1 Mentoring & Iterative Feedback</h4>
-            <p>Work directly with an expert advisor to refine literature, conduct data analysis (SPSS/R), and polish drafts.</p>
+            <p>
+              Work directly with an expert advisor to refine literature,
+              conduct data analysis (SPSS/R), and polish drafts.
+            </p>
           </div>
+
           <div className="timeline-step glass-dark-card hover-card">
             <div className="step-number">04</div>
             <h4>Final Review & Defense Prep</h4>
-            <p>Ensure 100% citation compliance, red line coherence, and rehearse your viva oral presentation with confidence.</p>
+            <p>
+              Ensure 100% citation compliance, red line coherence, and rehearse
+              your viva oral presentation with confidence.
+            </p>
           </div>
         </div>
 
@@ -203,42 +276,63 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
         </div>
       </section>
 
-      {/* INTERACTIVE CALCULATOR PREVIEW */}
+      {/* CALCULATOR */}
       <section className="section calculator-section">
         <div className="section-header center">
           <span className="eyebrow">Interactive Estimator</span>
+
           <h2>Calculate Your Recommended Thesis Roadmap</h2>
-          <p>Customized advice tailored to your university type, degree level, and timeline.</p>
+
+          <p>
+            Customized advice tailored to your university type, degree level,
+            and timeline.
+          </p>
         </div>
-        <ThesisCalculator onOpenBookingWithData={onOpenBookingWithData} />
+
+        <ThesisCalculator
+          onOpenBookingWithData={onOpenBookingWithData}
+        />
       </section>
 
-      {/* TESTIMONIALS HIGHLIGHT */}
+      {/* SUCCESS STORIES */}
       <section className="section testimonials-section">
         <div className="section-header center">
           <span className="eyebrow">Success Stories</span>
+
           <h2>What German University Students Say</h2>
-          <p>Real experiences from MBA and Master’s graduates who completed their thesis with top marks.</p>
+
+          <p>
+            Real experiences from MBA and Master’s graduates who completed
+            their thesis with top marks.
+          </p>
         </div>
 
         <div className="testimonials-grid">
           {successStories.map((story) => (
-            <div key={story.id} className="testimonial-card glass-panel hover-card">
-              <div className="rating-stars">
+            <article
+              key={story.id}
+              className="testimonial-card glass-panel hover-card"
+            >
+              <div className="rating-stars" aria-label={`${story.rating || 5} stars`}>
                 {[...Array(story.rating || 5)].map((_, i) => (
                   <IconStar key={i} size={16} />
                 ))}
               </div>
+
               <p className="quote-text">"{story.quote}"</p>
+
               <div className="student-profile">
-                <div className="student-avatar">{story.name.charAt(0)}</div>
+                <div className="student-avatar">
+                  {story.name.charAt(0)}
+                </div>
+
                 <div className="student-info-text">
                   <strong className="student-name">{story.name}</strong>
                   <span className="student-degree">{story.degree}</span>
                   <span className="student-uni">{story.university}</span>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
@@ -253,23 +347,30 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
         </div>
       </section>
 
-      {/* FAQ SECTION WITH ACCORDION */}
+      {/* FAQ */}
       <section className="section faq-section">
         <div className="section-header center">
           <span className="eyebrow">Frequently Asked Questions</span>
+
           <h2>Everything You Need To Know</h2>
-          <p>Transparent answers regarding our ethical guidelines, advisory scope, and process.</p>
+
+          <p>
+            Transparent answers regarding our ethical guidelines, advisory
+            scope, and process.
+          </p>
         </div>
 
         <div className="faq-category-filter">
-          {faqCategories.map((cat) => (
+          {faqCategories.map((category) => (
             <button
-              key={cat}
+              key={category}
               type="button"
-              className={`filter-chip ${activeFaqCategory === cat ? 'active' : ''}`}
-              onClick={() => setActiveFaqCategory(cat)}
+              className={`filter-chip ${
+                activeFaqCategory === category ? 'active' : ''
+              }`}
+              onClick={() => handleFaqCategoryChange(category)}
             >
-              {cat}
+              {category}
             </button>
           ))}
         </div>
@@ -277,20 +378,35 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
         <div className="faq-accordion-list">
           {filteredFaqs.map((faq, idx) => {
             const isOpen = openFaqIndex === idx
+
             return (
-              <div key={idx} className={`faq-accordion-item glass-panel ${isOpen ? 'open' : ''}`}>
+              <div
+                key={`${faq.category}-${idx}`}
+                className={`faq-accordion-item glass-panel ${
+                  isOpen ? 'open' : ''
+                }`}
+              >
                 <button
                   type="button"
                   className="faq-question-btn"
-                  onClick={() => setOpenFaqIndex(isOpen ? -1 : idx)}
+                  onClick={() =>
+                    setOpenFaqIndex(isOpen ? -1 : idx)
+                  }
+                  aria-expanded={isOpen}
                 >
                   <span className="faq-q-text">{faq.question}</span>
-                  <span className="faq-icon-toggle">{isOpen ? '−' : '+'}</span>
+
+                  <span className="faq-icon-toggle">
+                    {isOpen ? '−' : '+'}
+                  </span>
                 </button>
+
                 {isOpen && (
                   <div className="faq-answer-content">
                     <p>{faq.answer}</p>
-                    <span className="faq-tag-label">Category: {faq.category}</span>
+                    <span className="faq-tag-label">
+                      Category: {faq.category}
+                    </span>
                   </div>
                 )}
               </div>
@@ -299,12 +415,20 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
         </div>
       </section>
 
-      {/* FINAL CTA HERO */}
+      {/* FINAL CTA */}
       <section className="final-cta-section glass-dark-card">
         <div className="cta-content">
-          <span className="eyebrow light-eyebrow">Take The Next Step</span>
+          <span className="eyebrow light-eyebrow">
+            Take The Next Step
+          </span>
+
           <h2>Ready To Complete Your Thesis With Confidence?</h2>
-          <p>Book your free 30-minute consultation today. No obligations, 100% confidential.</p>
+
+          <p>
+            Book your free 30-minute consultation today. No obligations, 100%
+            confidential.
+          </p>
+
           <div className="cta-btn-row">
             <button
               type="button"
@@ -313,6 +437,7 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
             >
               Book Free Consultation
             </button>
+
             <a
               href={whatsappUrl}
               target="_blank"
