@@ -1,15 +1,21 @@
 :root {
   --primary: #1e5c8a;
-  --primary-dark: #16496f;
-  --ink: #173046;
-  --muted: #5f7182;
-  --line: #d9e4ec;
+  --primary-dark: #144366;
+  --primary-light: #eef6fb;
+  --primary-glow: rgba(30, 92, 138, 0.25);
+  --accent-gold: #d97706;
+  --ink: #0f2436;
+  --muted: #536779;
+  --line: #d3e1ec;
   --whatsapp: #1c8453;
+  --whatsapp-hover: #156942;
+  --dark-bg: #0d2133;
+  --card-shadow: 0 12px 32px rgba(15, 36, 54, 0.08);
+  --card-hover-shadow: 0 22px 48px rgba(30, 92, 138, 0.16);
+
   color: var(--ink);
-  background: #f7fbff;
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  background: #f4f8fc;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -27,17 +33,36 @@ html {
 body {
   min-width: 320px;
   margin: 0;
+  overflow-x: hidden;
+  background-color: #f4f8fc;
 }
 
-button,
-input,
-select,
-textarea {
-  letter-spacing: 0;
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(28, 132, 83, 0.5); }
+  50% { box-shadow: 0 0 0 12px rgba(28, 132, 83, 0); }
+}
+
+@keyframes pulseBadge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
 }
 
 button {
   cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
 }
 
 img {
@@ -48,12 +73,8 @@ img {
   html {
     scroll-behavior: auto;
   }
-
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
   }
 }
