@@ -189,12 +189,23 @@ export function IconBook({ size = 24 }) {
   )
 }
 
-// Map service IDs to their icons for easy lookup
-export const serviceIconMap = {
-  'topic-proposal': IconLightbulb,
-  'research-methodology': IconChart,
-  'structure-planning': IconStructure,
-  'editing-review': IconEdit,
-  'citation-formatting': IconPin,
-  'defense-prep': IconGradCap,
+// Map service IDs to their icons component
+export function ServiceIcon({ id, size = 24 }) {
+  switch (id) {
+    case 'topic-proposal':
+      return <IconLightbulb size={size} />
+    case 'research-methodology':
+      return <IconChart size={size} />
+    case 'structure-planning':
+      return <IconStructure size={size} />
+    case 'editing-review':
+      return <IconEdit size={size} />
+    case 'citation-formatting':
+      return <IconPin size={size} />
+    case 'defense-prep':
+      return <IconGradCap size={size} />
+    default:
+      return <IconBook size={size} />
+  }
 }
+

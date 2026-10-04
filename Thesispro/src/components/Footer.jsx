@@ -1,4 +1,5 @@
 import { navItems, whatsappUrl } from '../data/contentData'
+import { IconShield, IconGradCap, IconMapPin, IconMail } from './Icons'
 
 const currentYear = 2026
 
@@ -15,9 +16,9 @@ export function Footer({ navigateTo, onOpenBooking }) {
             Ethical academic mentoring, empirical research support, and thesis structure advisory for MBA and Master’s students across Germany.
           </p>
           <div className="footer-badges">
-            <span className="f-badge">🛡️ Ethical Guidance</span>
-            <span className="f-badge">🇩🇪 German Uni Standards</span>
-            <span className="f-badge">🔒 100% Confidential</span>
+            <span className="f-badge"><IconShield size={13} /> Ethical Guidance</span>
+            <span className="f-badge"><IconGradCap size={13} /> German Uni Standards</span>
+            <span className="f-badge"><IconShield size={13} /> 100% Confidential</span>
           </div>
         </div>
 
@@ -71,9 +72,9 @@ export function Footer({ navigateTo, onOpenBooking }) {
 
         <div className="footer-col contact-col">
           <h4 className="footer-heading">Advisory Hubs</h4>
-          <p className="contact-item">📍 Munich: Leopoldstraße 180, 80804 München</p>
-          <p className="contact-item">📍 Frankfurt: Mainzer Landstraße 50, 60329 Frankfurt</p>
-          <p className="contact-item">✉️ Email: hello@thesispro-germany.de</p>
+          <p className="contact-item"><IconMapPin size={15} /> Munich: Leopoldstraße 180, 80804 München</p>
+          <p className="contact-item"><IconMapPin size={15} /> Frankfurt: Mainzer Landstraße 50, 60329 Frankfurt</p>
+          <p className="contact-item"><IconMail size={15} /> Email: hello@thesispro-germany.de</p>
           <div className="footer-cta-box">
             <button
               type="button"

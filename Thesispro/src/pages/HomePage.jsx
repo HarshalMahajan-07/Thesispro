@@ -8,7 +8,7 @@ import {
   whatsappUrl,
 } from '../data/contentData'
 import { ThesisCalculator } from '../components/ThesisCalculator'
-import { serviceIconMap, IconStar, IconWhatsApp, IconGradCap } from '../components/Icons'
+import { ServiceIcon, IconStar, IconGradCap } from '../components/Icons'
 
 export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBookingWithData }) {
   const [activeFaqCategory, setActiveFaqCategory] = useState('All')
@@ -121,20 +121,18 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
         </div>
 
         <div className="services-grid">
-          {servicesData.slice(0, 4).map((service) => {
-            const IconComponent = serviceIconMap[service.id]
-            return (
-              <div
-                key={service.id}
-                className="service-card glass-panel hover-card"
-                onClick={() => onSelectService(service)}
-              >
-                <div className="service-card-top">
-                  <span className="service-icon-box">
-                    {IconComponent ? <IconComponent size={26} /> : service.number}
-                  </span>
-                  <span className="service-num">{service.number}</span>
-                </div>
+          {servicesData.slice(0, 4).map((service) => (
+            <div
+              key={service.id}
+              className="service-card glass-panel hover-card"
+              onClick={() => onSelectService(service)}
+            >
+              <div className="service-card-top">
+                <span className="service-icon-box">
+                  <ServiceIcon id={service.id} size={24} />
+                </span>
+                <span className="service-num">{service.number}</span>
+              </div>
                 <span className="service-badge">{service.badge}</span>
                 <h3>{service.title}</h3>
                 <p>{service.shortDesc}</p>
@@ -149,8 +147,7 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
                   Learn More & Deliverables →
                 </button>
               </div>
-            )
-          })}
+          ))}
         </div>
 
         <div className="section-cta-row center">
@@ -227,13 +224,18 @@ export function HomePage({ navigateTo, onOpenBooking, onSelectService, onOpenBoo
         <div className="testimonials-grid">
           {successStories.map((story) => (
             <div key={story.id} className="testimonial-card glass-panel hover-card">
-              <div className="rating-stars">★★★★★</div>
+              <div className="rating-stars">
+                {[...Array(story.rating || 5)].map((_, i) => (
+                  <IconStar key={i} size={16} />
+                ))}
+              </div>
               <p className="quote-text">"{story.quote}"</p>
               <div className="student-profile">
                 <div className="student-avatar">{story.name.charAt(0)}</div>
-                <div>
+                <div className="student-info-text">
                   <strong className="student-name">{story.name}</strong>
-                  <span className="student-details">{story.degree} • {story.university}</span>
+                  <span className="student-degree">{story.degree}</span>
+                  <span className="student-uni">{story.university}</span>
                 </div>
               </div>
             </div>

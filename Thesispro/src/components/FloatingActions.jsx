@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { whatsappUrl } from '../data/contentData'
+import { IconArrowUp, IconCalendar, IconWhatsApp } from './Icons'
 
 export function FloatingActions({ onOpenBooking }) {
   const [showBackToTop, setShowBackToTop] = useState(false)
@@ -26,7 +27,7 @@ export function FloatingActions({ onOpenBooking }) {
           title="Back to Top"
           aria-label="Back to Top"
         >
-          ↑
+          <IconArrowUp size={20} />
         </button>
       )}
 
@@ -36,7 +37,7 @@ export function FloatingActions({ onOpenBooking }) {
         onClick={onOpenBooking}
         title="Book Free Consultation"
       >
-        <span>📅</span>
+        <IconCalendar size={22} />
         <span className="tooltip-text">Book Consultation</span>
       </button>
 
@@ -48,7 +49,7 @@ export function FloatingActions({ onOpenBooking }) {
         title="Chat on WhatsApp"
         aria-label="Chat on WhatsApp"
       >
-        <span className="wa-icon">💬</span>
+        <IconWhatsApp size={24} />
         <span className="wa-badge">Online</span>
         <span className="tooltip-text">WhatsApp Us</span>
       </a>

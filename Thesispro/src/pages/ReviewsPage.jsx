@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { successStories } from '../data/contentData'
+import { IconStar, IconCheck } from '../components/Icons'
 
 export function ReviewsPage({ onOpenBooking }) {
   const [activeTag, setActiveTag] = useState('All')
@@ -55,10 +56,14 @@ export function ReviewsPage({ onOpenBooking }) {
                 <div>
                   <h3>{story.name}</h3>
                   <span className="student-degree">{story.degree}</span>
-                  <span className="student-uni">🏛️ {story.university}</span>
+                  <span className="student-uni">{story.university}</span>
                 </div>
               </div>
-              <span className="rating-stars">★★★★★</span>
+              <div className="rating-stars">
+                {[...Array(story.rating || 5)].map((_, i) => (
+                  <IconStar key={i} size={16} />
+                ))}
+              </div>
             </div>
 
             <div className="topic-badge-row">
@@ -70,7 +75,7 @@ export function ReviewsPage({ onOpenBooking }) {
 
             <div className="review-card-footer">
               <span className="tag-pill">{story.tag}</span>
-              <span className="verified-badge">✓ Verified Graduate</span>
+              <span className="verified-badge"><IconCheck size={14} /> Verified Graduate</span>
             </div>
           </div>
         ))}

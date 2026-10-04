@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { servicesData } from '../data/contentData'
+import { ServiceIcon, IconClock } from '../components/Icons'
 
 export function ServicesPage({ onSelectService, onOpenBooking }) {
   const [filter, setFilter] = useState('All')
@@ -45,11 +46,13 @@ export function ServicesPage({ onSelectService, onOpenBooking }) {
           >
             <div className="service-card-header">
               <div className="icon-badge-row">
-                <span className="service-big-icon">{service.icon}</span>
+                <span className="service-big-icon">
+                  <ServiceIcon id={service.id} size={28} />
+                </span>
                 <span className="rec-badge">{service.badge}</span>
               </div>
               <h3>{service.title}</h3>
-              <p className="service-dur">⏱️ {service.duration}</p>
+              <p className="service-dur"><IconClock size={14} /> {service.duration}</p>
             </div>
 
             <p className="service-desc">{service.fullDesc}</p>
